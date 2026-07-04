@@ -13,7 +13,7 @@ class Produto_DAO:
     
     def get_by_id(self, id):
         for p in self.__produtos:
-            if p.__id == id:
+            if p._id == id:
                 return p
         return None
 
