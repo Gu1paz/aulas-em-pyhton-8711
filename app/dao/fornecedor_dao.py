@@ -14,7 +14,7 @@ class Fornecedor_DAO:
     
     def get_by_id(self, id):
         for f in self.__fornecedores:
-            if f._id == id:
+            if f.id == id:
                 return f
         return None
     
