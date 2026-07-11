@@ -4,8 +4,8 @@ from colorama import init, Fore, Style
 # Componentes de Fornecedores
 
 from app.dao.produto_dao import Produto_DAO
-from app.views.produto_view import Produto_terminal_view
-from app.controllers.produto_controller import Produto_controller
+from app.views.produto_view import Produto_Terminal_View
+from app.controllers.produto_controller import Produto_Controller
 
 from app.dao.fornecedor_dao import Fornecedor_DAO
 from app.views.fornecedor_view import Fornecedor_terminal_view
@@ -27,7 +27,7 @@ class ErpApplication:
         
         # Inicialização centralizada dos ecossistemas (Container de Serviços manual)
         self._dao_produtos = Produto_DAO()
-        self._ctrl_produtos = Produto_controller(dao=self._dao_produtos, view=Produto_terminal_view())
+        self._ctrl_produtos = Produto_Controller(dao=self._dao_produtos, view=Produto_Terminal_View())
         
         self._dao_fornecedores = Fornecedor_DAO()
         self._ctrl_fornecedores = Fornecedor_controller(dao=self._dao_fornecedores, view=Fornecedor_terminal_view())
@@ -77,8 +77,8 @@ if __name__ == "__main__":
     app = ErpApplication()
     app.run()
     dao = Produto_DAO
-    view = Produto_terminal_view
-    controller = Produto_controller(dao, view)
+    view = Produto_Terminal_View()
+    controller = Produto_Controller(dao, view)
     controller.inicializar_sistema()
     dao = Fornecedor_DAO()
     view = Fornecedor_terminal_view()

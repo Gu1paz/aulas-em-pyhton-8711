@@ -15,7 +15,7 @@ class Produto:
 
     @property
     def nome(self):
-        return self._nome
+        return self._nome.upper()
     
     @nome.setter
     def nome(self, novo_nome):
@@ -36,6 +36,10 @@ class Produto:
     @preco.setter
     def preco(self, novo_preco):
         self._preco = novo_preco
+
+    @property
+    def valor_estoque(self):
+        return self._preco * self._estoque
 
     def atualizar_dados(self, novo_nome, novo_estoque, novo_preco):
         if novo_preco < 0:
