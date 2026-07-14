@@ -15,7 +15,6 @@ class Generic_DAO(DAO):
         return list(self._dados)
 
     def get_by_id(self, id):
-
         for objeto in self._dados:
             if objeto.id == id:
                 return objeto

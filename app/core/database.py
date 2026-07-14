@@ -1,4 +1,4 @@
-import _mysql_connector
+import mysql.connector
 import os
 from dotenv import load_dotenv
 
@@ -8,10 +8,15 @@ class Database:
 
     def conectar(self):
 
-        return _mysql_connector(
-            host =      os.detenv("DB_HOST"),
+        return mysql.connector.connect(
+            host =      os.getenv("DB_HOST"),
             port =      os.getenv("DB_PORT"),
             database =  os.getenv("DB_NAME"),
             user =      os.getenv("DB_USER"),
             password =  os.getenv("DB_PASSWORD")
         )
+    def desconectar(self, cursor=None, conexao=None):
+        if cursor:
+            cursor.close()
+        if conexao and conexao.is_connected():
+            conexao.close()
