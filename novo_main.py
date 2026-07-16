@@ -32,7 +32,7 @@ class ErpApplication:
         self._dao_produtos = Produto_DAO(self._database)
         self._ctrl_produtos = Produto_Controller(dao=self._dao_produtos, view=Produto_Terminal_View())
         
-        self._dao_fornecedores = Fornecedor_DAO()
+        self._dao_fornecedores = Fornecedor_DAO(self._database)
         self._ctrl_fornecedores = Fornecedor_controller(dao=self._dao_fornecedores, view=Fornecedor_terminal_view())
 
         self._dao_usuarios = Usuario_DAO()

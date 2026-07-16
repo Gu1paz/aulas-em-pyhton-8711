@@ -41,7 +41,7 @@ class Fornecedor_controller:
                     if fornecedor_existente:
                         # Corrigido o nome do método para o correto da View
                         razao_social, nome_fantasia, cnpj, sla_atendimento = self.view.Ler_dados_fornecedor()
-                        fornecedor_existente.atualizar_dados(id_fornecedor, razao_social, nome_fantasia, cnpj, sla_atendimento)
+                        fornecedor_existente.atualizar_dados(razao_social, nome_fantasia, cnpj, sla_atendimento)
                         self.dao.update(fornecedor_existente)
                         self.view.exibir_mensagem("Fornecedor atualizado com sucesso!")
                     else:
