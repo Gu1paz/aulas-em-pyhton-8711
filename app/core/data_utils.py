@@ -4,9 +4,9 @@ class Data_Utils:
 
     FORMATO_DATA = "%d/%m/%Y"
 
-    @staticmethod #recebo data string e converte para data(mês, dia ou ano)
+    @staticmethod
     def string_para_data(data):
-        return datetime.strfptime(data, Data_Utils.FORMATO_DATA).data()
+        return datetime.strptime(data,Data_Utils.FORMATO_DATA).date()
     
     @staticmethod #nesse caso seria ao contrario quero transformar a data em string
     def data_para_string(data):
@@ -20,11 +20,16 @@ class Data_Utils:
         except ValueError:
             return False
         
+    
     @staticmethod
     def calcular_idade(data):
-        data_inicio = Data_Utils.string_para_data(data)
+        data_inicio = data
+        if isinstance(data, str):
+            data_inicio = Data_Utils.string_para_data(data)
+        elif not isinstance(data, date):
+            raise ValueError("A data está em um formato inválido.")
         hoje = date.today()
         idade = hoje.year - data_inicio.year
         if(hoje.month, hoje.day) < (data_inicio.month, data_inicio.day):
             idade -= 1
-        return idade     
+        return idade        

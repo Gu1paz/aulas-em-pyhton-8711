@@ -40,6 +40,7 @@ class Fornecedor_DAO(DAO):
         cursor.execute(sql)
         registros = cursor.fetchall()
         fornecedores = []
+
         for registro in registros:
             fornecedores.append(
                 Fornecedor(
@@ -50,8 +51,9 @@ class Fornecedor_DAO(DAO):
                     registro[4]
                 )
             )
-            self._database.desconectar(cursor, conexao)
-            return fornecedores
+
+        self._database.desconectar(cursor, conexao)
+        return fornecedores
         
     def get_by_id(self, id):
         conexao = self._database.conectar()
@@ -93,7 +95,7 @@ class Fornecedor_DAO(DAO):
                 WHERE 
                     ID              = %s   
               """
-        cursor.execute(sql(
+        cursor.execute(sql, (
             fornecedor.razao_social,
             fornecedor.nome_fantasia,
             fornecedor.cnpj,

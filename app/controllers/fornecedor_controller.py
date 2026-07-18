@@ -29,7 +29,7 @@ class Fornecedor_controller:
             elif opcao == 2:
                 fornecedores = self.dao.get_all()
                 self.view.exibir_fornecedores(fornecedores)
-                self.view.aguardar_entrada()
+                input("Pressione Enter para continuar...")
 
             elif opcao == 3:
                 try:

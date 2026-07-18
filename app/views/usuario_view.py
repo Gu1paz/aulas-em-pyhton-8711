@@ -38,10 +38,10 @@ class Usuario_terminal_view:
             print("Nenhum usuário cadastrado")
             return
         
-        print(f"{'ID' :<4} | {'NOME' :<20} | {'EMAIL' :<20} | {'DATA DE NASCIMENTO' :<10}")
+        print(f"{'ID' :<4} | {'NOME' :<20} | {'EMAIL' :<20} | {'DATA DE NASCIMENTO' :<18}")
         print("-"*50)
         for u in usuarios:
-            print(f"{u.id :<4} | {u.nome :<20} | {u.email :<20} | {u.data_nascimento :<10}")
+            print(f"{str(u.id) :<4} | {str(u.nome) :<20} | {str(u.email) :<20} | {str(u.data_nascimento) :<11}")
         print("-"*50)
 
     def exibir_mensagem(self, mensagem, sucesso=True):

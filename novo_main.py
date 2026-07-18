@@ -35,7 +35,7 @@ class ErpApplication:
         self._dao_fornecedores = Fornecedor_DAO(self._database)
         self._ctrl_fornecedores = Fornecedor_controller(dao=self._dao_fornecedores, view=Fornecedor_terminal_view())
 
-        self._dao_usuarios = Usuario_DAO()
+        self._dao_usuarios = Usuario_DAO(self._database)
         self._ctrl_usuarios = Usuario_controller(dao=self._dao_usuarios, view=Usuario_terminal_view())
 
         self._dao_cliente = Cliente_DAO()
@@ -79,19 +79,4 @@ class ErpApplication:
 if __name__ == "__main__":
     app = ErpApplication()
     app.run()
-    dao = Produto_DAO
-    view = Produto_Terminal_View()
-    controller = Produto_Controller(dao, view)
-    controller.inicializar_sistema()
-    dao = Fornecedor_DAO()
-    view = Fornecedor_terminal_view()
-    controller = Fornecedor_controller(dao, view)
-    controller.inicializar_sistema()
-    dao = Usuario_DAO()
-    view = Usuario_terminal_view()
-    controller = Usuario_controller(dao, view)
-    controller.inicializar_sistema()
-    dao = Cliente_DAO()
-    view = Cliente_terminal_view()
-    controller = Cliente_controller(dao, view)
-    controller.inicializar_sistema
+   

@@ -1,5 +1,6 @@
 import os
 from app.models.usuario import Usuario
+from app.core.data_utils import Data_Utils
 
 class Usuario_controller:
     def __init__(self, dao, view):
@@ -18,7 +19,7 @@ class Usuario_controller:
             elif opcao == 1:
                 try:
                     nome, email, data_nascimento = self.view.ler_dados_usuario()
-                    usuario = Usuario(None, nome, email, data_nascimento)
+                    usuario = Usuario(None, nome, email, Data_Utils.string_para_data(data_nascimento))
                     self.dao.save(usuario)
                     self.view.exibir_mensagem("Usuário cadastrado com sucesso!")
                 except ValueError as e:
@@ -27,7 +28,7 @@ class Usuario_controller:
             elif opcao == 2:
                 usuarios = self.dao.get_all()
                 self.view.exibir_usuarios(usuarios)
-                self.view.aguardar_entrada()
+                input("Pressione Enter para continuar...")
 
             elif opcao == 3:
                 try:
