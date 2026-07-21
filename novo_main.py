@@ -38,7 +38,7 @@ class ErpApplication:
         self._dao_usuarios = Usuario_DAO(self._database)
         self._ctrl_usuarios = Usuario_controller(dao=self._dao_usuarios, view=Usuario_terminal_view())
 
-        self._dao_cliente = Cliente_DAO()
+        self._dao_cliente = Cliente_DAO(self._database)
         self._ctrl_cliente = Cliente_controller(dao=self._dao_cliente, view=Cliente_terminal_view())
 
 
