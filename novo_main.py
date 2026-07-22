@@ -10,15 +10,15 @@ from app.controllers.produto_controller import Produto_Controller
 
 from app.dao.fornecedor_dao import Fornecedor_DAO
 from app.views.fornecedor_view import Fornecedor_terminal_view
-from app.controllers.fornecedor_controller import Fornecedor_controller
+from app.controllers.fornecedor_controller import Fornecedor_Controller
 
 from app.dao.usuario_dao import Usuario_DAO
 from app.views.usuario_view import Usuario_terminal_view
-from app.controllers.usuario_controller import Usuario_controller
+from app.controllers.usuario_controller import Usuario_Controller
 
 from app.dao.cliente_dao import Cliente_DAO
 from app.views.cliente_view import Cliente_terminal_view
-from app.controllers.cliente_controller import Cliente_controller
+from app.controllers.cliente_controller import Cliente_Controller
 
 
 class ErpApplication:
@@ -33,13 +33,13 @@ class ErpApplication:
         self._ctrl_produtos = Produto_Controller(dao=self._dao_produtos, view=Produto_Terminal_View())
         
         self._dao_fornecedores = Fornecedor_DAO(self._database)
-        self._ctrl_fornecedores = Fornecedor_controller(dao=self._dao_fornecedores, view=Fornecedor_terminal_view())
+        self._ctrl_fornecedores = Fornecedor_Controller(dao=self._dao_fornecedores, view=Fornecedor_terminal_view())
 
         self._dao_usuarios = Usuario_DAO(self._database)
-        self._ctrl_usuarios = Usuario_controller(dao=self._dao_usuarios, view=Usuario_terminal_view())
+        self._ctrl_usuarios = Usuario_Controller(dao=self._dao_usuarios, view=Usuario_terminal_view())
 
         self._dao_cliente = Cliente_DAO(self._database)
-        self._ctrl_cliente = Cliente_controller(dao=self._dao_cliente, view=Cliente_terminal_view())
+        self._ctrl_cliente = Cliente_Controller(dao=self._dao_cliente, view=Cliente_terminal_view())
 
 
     def _renderizar_menu_principal(self):
