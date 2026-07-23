@@ -1,5 +1,4 @@
 from app.models.fornecedor import Fornecedor
-
 class Produto:
     def __init__(self, id, nome, estoque, preco, fornecedor:Fornecedor):
         self._id = id
@@ -64,8 +63,3 @@ class Produto:
         self._fornecedor = novo_fornecedor
             
     
-p1 = Produto(1, "Playstation", 100, 3780)
-
-print(p1.nome)
-p1.nome = "Playstation 5 PRO"
-print(p1.nome)

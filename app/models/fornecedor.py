@@ -1,4 +1,4 @@
-class Cliente:
+class Fornecedor:
     def __init__(self, id, razao_social, nome_fantasia, cnpj, sla_atendimento):
         self._id = id
         self._razao_social = razao_social

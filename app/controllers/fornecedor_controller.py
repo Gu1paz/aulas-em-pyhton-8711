@@ -1,22 +1,19 @@
 import os
-from app.models.fornecedor import Cliente
+from app.models.fornecedor import Fornecedor
 
 class Fornecedor_Controller:
     def __init__(self, dao, view):
         self.dao = dao
         self.view = view
-    
     def save(self):
         try:
             razao_social, nome_fantasia, cnpj, sla_atendimento = self.view.ler_dados_fornecedor()
-            fornecedor = Cliente(None, razao_social, nome_fantasia, cnpj, sla_atendimento)
+            fornecedor = Fornecedor(None,razao_social, nome_fantasia, cnpj, sla_atendimento)
             self.dao.save(fornecedor)
             self.view.exibir_mensagem("Fornecedor cadastrado com sucesso!")
         except ValueError:
             self.view.exibir_mensagem("Erro: Entrada inválida. Tente novamente.", False)
-        except KeyboardInterrupt:
-            self.view.exibir_mensagem("Operação cancelada pelo usuário.", False)        
-    
+        
     def get_all(self):
         fornecedores = self.dao.get_all()
         self.view.exibir_fornecedores(fornecedores)
@@ -36,8 +33,7 @@ class Fornecedor_Controller:
                 self.view.exibir_mensagem("Fornecedor não encontrado.", False) 
         except ValueError as e:
             self.view.exibir_mensagem(f"Erro: {str(e)}", False)
-    
-    def delete(self):
+    def delete(self):    
         try:
             fornecedores = self.dao.get_all()
             self.view.exibir_fornecedores(fornecedores)
@@ -49,7 +45,6 @@ class Fornecedor_Controller:
                 self.view.exibir_mensagem("Fornecedor não encontrado.", False)
         except ValueError:
             self.view.exibir_mensagem("Erro: ID inválido", False)
-
     def inicializar_sistema(self):
         while True:
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -58,15 +53,16 @@ class Fornecedor_Controller:
                 break
             elif opcao == 1:
                 self.save()
-                
+            
             elif opcao == 2:
                 self.get_all()
             
             elif opcao == 3:
                 self.update()
-
+                
             elif opcao == 4:
                 self.delete()
                 
             else:
                 self.view.exibir_mensagem("Opção inválida. Tente novamente.", False)
+                

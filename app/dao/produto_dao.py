@@ -1,21 +1,23 @@
 from app.dao.dao import DAO
 from app.models.produto import Produto
 class Produto_DAO(DAO):
-    def __init__(self, database):
+    def __init__(self, database, fornecedor_dao):
         super().__init__(database)
+        self._fornecedor_dao = fornecedor_dao
 
     def save(self, produto):
         conexao, cursor = self.conectar()
         try:
             sql =   """
                         INSERT INTO PRODUTO
-                        (NOME, ESTOQUE, PRECO)
-                        VALUES (%s, %s, %s)
+                        (NOME, ESTOQUE, PRECO, FORNECEDOR_ID)
+                        VALUES (%s, %s, %s, %s)
                     """
             cursor.execute(sql, (
                 produto.nome,
                 produto.estoque,
-                produto.preco
+                produto.preco,
+                produto.fornecedor.id
             ))
             conexao.commit()
             produto.id = cursor.lastrowid
@@ -35,20 +37,25 @@ class Produto_DAO(DAO):
                             ID,
                             NOME,
                             ESTOQUE,
-                            PRECO
+                            PRECO,
+                            FORNECEDOR_ID
                         FROM
                             PRODUTO
+                        ORDER BY
+                            NOME
                     """
             cursor.execute(sql)
             registros = cursor.fetchall()
             produtos = []
             for registro in registros:
+                fornecedor = self._fornecedor_dao.get_by_id(registro[4])
                 produtos.append(
                     Produto(
                         registro[0],
                         registro[1],
                         registro[2],
-                        registro[3]
+                        registro[3],
+                        fornecedor
                     )
                 )
             return produtos
@@ -66,7 +73,8 @@ class Produto_DAO(DAO):
                             ID,
                             NOME,
                             ESTOQUE,
-                            PRECO
+                            PRECO,
+                            FORNECEDOR_ID
                         FROM
                             PRODUTO
                         WHERE
@@ -74,6 +82,7 @@ class Produto_DAO(DAO):
                     """        
             cursor.execute(sql,(id,))
             registro = cursor.fetchone()
+            fornecedor = self._fornecedor_dao.get_by_id(registro[4])
             self._database.desconectar(cursor, conexao)
             if registro is None:
                 return None
@@ -81,7 +90,8 @@ class Produto_DAO(DAO):
                 registro[0],
                 registro[1],
                 registro[2],
-                registro[3]
+                registro[3],
+                fornecedor
             )
         except Exception as e:
             raise e
@@ -96,14 +106,17 @@ class Produto_DAO(DAO):
                         UPDATE PRODUTO SET
                             NOME             = %s,
                             ESTOQUE          = %s,
-                            PRECO            = %s
+                            PRECO            = %s,
+                            FORNECEDOR-ID    = %s
                         WHERE
                             ID = %s
                     """
             cursor.execute(sql,(
                                     produto.nome,
                                     produto.estoque,
-                                    produto.preco
+                                    produto.preco,
+                                    produto.forncedor.id,
+                                    produto.id
             ))
             conexao.commit()
             sucesso = cursor.rowcount > 0

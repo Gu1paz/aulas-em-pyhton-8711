@@ -1,22 +1,22 @@
 import os
-from app.models.fornecedor import Cliente
+from app.models.cliente import Cliente
 from app.core.data_utils import Data_Utils
+
 class Cliente_Controller:
     def __init__(self, dao, view):
         self.dao = dao
         self.view = view
-    
     def save(self):
         try:
             nome, data_nascimento, limite_credito = self.view.ler_dados_cliente()
-            cliente = Cliente(None, nome, Data_Utils.string_para_data(data_nascimento), limite_credito)
+            cliente = Cliente(None,nome, Data_Utils.string_para_data(data_nascimento), limite_credito)
             self.dao.save(cliente)
             self.view.exibir_mensagem("Cliente cadastrado com sucesso!")
         except ValueError:
             self.view.exibir_mensagem("Erro: Entrada inválida. Tente novamente.", False)
         except KeyboardInterrupt:
-            self.view.exibir_mensagem("Operação cancelada pelo usuário.", False)        
-    
+            self.view.exibir_mensagem("Operação cancelada pelo usuário.", False)
+        
     def get_all(self):
         clientes = self.dao.get_all()
         self.view.exibir_clientes(clientes)
@@ -36,7 +36,7 @@ class Cliente_Controller:
                 self.view.exibir_mensagem("Cliente não encontrado.", False) 
         except ValueError as e:
             self.view.exibir_mensagem(f"Erro: {str(e)}", False)
-    
+
     def delete(self):
         try:
             clientes = self.dao.get_all()
@@ -58,15 +58,15 @@ class Cliente_Controller:
                 break
             elif opcao == 1:
                 self.save()
-                
+            
             elif opcao == 2:
                 self.get_all()
             
             elif opcao == 3:
                 self.update()
-
+            
             elif opcao == 4:
-                self.delete()
-                
+                self.delete()                
             else:
                 self.view.exibir_mensagem("Opção inválida. Tente novamente.", False)
+                
